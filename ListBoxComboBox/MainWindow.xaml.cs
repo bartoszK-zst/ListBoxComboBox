@@ -35,6 +35,7 @@ namespace ListBoxComboBox
         }
         private void EditPerson(object sender, RoutedEventArgs e)
         {
+            throw new NotImplementedException("Metoda edycji osób nie została jeszcze zaimplementowana");
             //TODO nwm
         }
         private void RemovePerson(object sender, RoutedEventArgs e)
