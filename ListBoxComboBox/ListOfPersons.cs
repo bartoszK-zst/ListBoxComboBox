@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ListBoxComboBox
 {
@@ -14,7 +16,7 @@ namespace ListBoxComboBox
         public ListOfPersons()
         {
             Persons = new ObservableCollection<Person>();
-            LoadPersons("plik.txt");
+            LoadPersons("Persons.txt");
         }
 
         public void AddPerson(Person person)
@@ -36,16 +38,41 @@ namespace ListBoxComboBox
         }
         public void LoadPersons(string file)
         {
-            //TODO pobieranie z pliku
             Persons.Clear();
-            Persons.Add(new Person("Adam", "Kowalski", EducationLevel.średnie));
-            Persons.Add(new Person("Monika", "Dudek", EducationLevel.podstawowe));
-            Persons.Add(new Person("Jan", "Sobieski", EducationLevel.wyższe));
-            Persons.Add(new Person("Marta", "Nowak", EducationLevel.średnie));
+            StreamReader reader = File.OpenText(file);
+            string lineOfData;
+            while ((lineOfData = reader.ReadLine()) != null)
+            {
+                string[] serializedLineOfData = lineOfData.Split(';');
+                EducationLevel educationLevel;
+                switch (serializedLineOfData[2])
+                {
+                    case "podstawowe": educationLevel = EducationLevel.podstawowe; break;
+                    case "średnie": educationLevel = EducationLevel.średnie; break;
+                    case "wyższe": educationLevel = EducationLevel.wyższe; break;
+                    default: educationLevel = EducationLevel.podstawowe;break;
+                }
+                Persons.Add(new Person(serializedLineOfData[0], serializedLineOfData[1], educationLevel));
+            }
+            reader.Close();
         }
         public void SavePersons(string file)
         {
-            //TODO zapisywanie do pliku
+            File.WriteAllText(file, string.Empty);
+            StreamWriter writer;
+            if (!File.Exists(file))
+            {
+                writer = File.CreateText(file);
+            }
+            else
+            {
+                writer = new StreamWriter(file);
+            }
+            foreach (Person person in Persons)
+            {
+                writer.WriteLine($"{person.FirstName};{person.LastName};{person.Education}");
+            }
+            writer.Close();
         }
     }
 }

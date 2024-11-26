@@ -27,7 +27,7 @@ namespace ListBoxComboBox
         private void AddPerson(object sender, RoutedEventArgs e)
         {
             EducationLevel edu = EducationLevel.podstawowe;
-            if(!(education.SelectedItem is null))
+            if (!(education.SelectedItem is null))
             {
                 edu = Enum.Parse<EducationLevel>(education.SelectedItem.ToString());
             }
@@ -40,6 +40,11 @@ namespace ListBoxComboBox
         private void RemovePerson(object sender, RoutedEventArgs e)
         {
             pList.RemovePersonAt(pListBox.SelectedIndex);
+        }
+
+        private void SavePersons(object sender, RoutedEventArgs e)
+        {
+            pList.SavePersons("Persons.txt");
         }
     }
 }

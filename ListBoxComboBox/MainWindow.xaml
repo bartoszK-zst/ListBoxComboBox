@@ -40,6 +40,7 @@
             <Button Style="{StaticResource GreenBoldFont}" Click="AddPerson">Dodaj osobę</Button>
             <Button Style="{StaticResource GreenBoldFont}" Click="EditPerson">Edytuj osobę</Button>
             <Button Style="{StaticResource GreenBoldFont}" Click="RemovePerson">Usuń osobę</Button>
+            <Button Style="{StaticResource GreenBoldFont}" Click="SavePersons">Zapisz dane</Button>
         </StackPanel>
 
         <ListBox x:Name="pListBox" Grid.Column="1" Background="#FFFCF8F2">
