@@ -35,8 +35,12 @@ namespace ListBoxComboBox
         }
         private void EditPerson(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException("Metoda edycji osób nie została jeszcze zaimplementowana");
-            //TODO nwm
+            EducationLevel edu = EducationLevel.podstawowe;
+            if (!(education.SelectedItem is null))
+            {
+                edu = Enum.Parse<EducationLevel>(education.SelectedItem.ToString());
+            }
+            pList.EditPerson(pListBox.SelectedIndex, new Person(fName.Text, lName.Text, edu));
         }
         private void RemovePerson(object sender, RoutedEventArgs e)
         {
